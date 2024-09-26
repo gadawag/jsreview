@@ -147,7 +147,6 @@ const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
 
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
@@ -159,3 +158,158 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   rootMargin: `-${navHeight}px`, // is a box of pixel that will be applied outside of our target element
 });
 headerObserver.observe(header);
+
+///////////////////////////////////////
+// Reveal sections: Intersection Observer API
+
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+
+  // remove the observer for that particular section if we already show it to the page
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(section => {
+  section.classList.add('section--hidden'); // Hide all sections first
+  sectionObserver.observe(section);
+});
+
+///////////////////////////////////////
+// Reveal images: Intersection Observer API
+
+const imgTargets = document.querySelectorAll('img[data-src]');
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+
+  entry.target.src = entry.target.dataset.src;
+
+  // entry.target.classList.remove('lazy-img'); // This won't work because the image needs to loads first; or else we will see a loading image if we remove this suddenly
+  // use event listener instead when the image fully loads, then remove the blur
+  entry.target.addEventListener('load', function (e) {
+    this.classList.remove('lazy-img');
+    observer.unobserve(entry.target);
+  });
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px',
+});
+
+imgTargets.forEach(img => imgObserver.observe(img));
+
+///////////////////////////////////////
+// Slider
+
+const slider = function () {
+  const slides = document.querySelectorAll('.slide');
+  const btnLeft = document.querySelector('.slider__btn--left');
+  const btnRight = document.querySelector('.slider__btn--right');
+  const dotContainer = document.querySelector('.dots');
+
+  let curSlide = 0;
+  const maxSlide = slides.length;
+
+  // Functions
+  const createDots = function () {
+    slides.forEach((_, i) => {
+      dotContainer.insertAdjacentHTML(
+        'beforeend',
+        `<button class="dots__dot" data-slide="${i}"></button>`
+      );
+    });
+  };
+
+  // THIS IS THE MAIN FUNCTION THAT WILL DETERMINE WHICH SLIDE TO SHOW
+  const goToSlide = function (slide) {
+    slides.forEach((s, i) => {
+      s.style.transform = `translateX(${100 * (i - slide)}%)`;
+      // curSlide = 1: -100% 0% 100% 200%
+    });
+  };
+
+  // Next slide
+  const nextSlide = function () {
+    if (curSlide === maxSlide - 1) {
+      curSlide = 0;
+    } else {
+      curSlide++;
+    }
+
+    goToSlide(curSlide);
+    highlightDot(curSlide);
+  };
+
+  // Prev slide
+  const prevSlide = function () {
+    if (curSlide === 0) {
+      curSlide = maxSlide - 1;
+    } else {
+      curSlide--;
+    }
+
+    goToSlide(curSlide);
+    highlightDot(curSlide);
+  };
+
+  // Highlight the dot
+  const highlightDot = function (slide) {
+    // Reset the background color of all dots
+    document
+      .querySelectorAll('.dots__dot')
+      .forEach(dot => dot.classList.remove('dots__dot--active'));
+
+    // Selecting the element with class and data attribute
+    document
+      .querySelector(`.dots__dot[data-slide='${slide}']`)
+      .classList.add('dots__dot--active');
+  };
+
+  const init = function () {
+    createDots();
+
+    // Put all slides side-by-side, because initially the slides are overlapping each other
+    goToSlide(0);
+
+    highlightDot(curSlide);
+  };
+  init();
+
+  // Events
+  btnRight.addEventListener('click', nextSlide);
+
+  btnLeft.addEventListener('click', prevSlide);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') nextSlide();
+    e.key === 'ArrowLeft' && prevSlide();
+  });
+
+  dotContainer.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('dots__dot')) return;
+
+    // Get the slide number in data- attribute
+    const { slide } = e.target.dataset;
+
+    highlightDot(slide);
+
+    // Change the slide
+    curSlide = Number.parseInt(slide);
+    goToSlide(curSlide);
+  });
+};
+slider();
