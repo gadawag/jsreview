@@ -1,0 +1,15 @@
+core-js: polyfills for up to ECMAScript 2023
+
+regenerator-runtime: polyfills for async functions
+
+"browserslist": "last 2 versions, > 0.5% and ie >= 11, not dead": need to add this to our code for Babel preset inside Parcel
+
+@parcel/transformer-sass: will automatically downloaded when we use sass as our preprocessor
+
+CONTROLLER: TO MAKE OUR APPLICATION WORK (CONNECTION BETWEEN MODEL AND VIEW); APPLICATION LOGIC
+MODEL: BUSINESS LOGIC, STATE, WEB API
+VIEWS: RENDERING UI
+
+config.js: We put all variables that should be constant and re-usesable code across the project
+
+Class in Views: We used class in views to use inheritance, because we are going to have a common methods for different kinds of views module
