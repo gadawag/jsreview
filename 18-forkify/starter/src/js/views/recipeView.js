@@ -1,7 +1,8 @@
 import View from './View.js';
 // import iconsx from '../img/icons.svg'; // IN PARCEL: WE CAN IMPORT MORE THAN JS FILE!!! ALL KINDS OF ASSETS (THIS IS FOR PARCEL 1 ONLY, AND ALSO PARCEL 2?)
 import icons from 'url:../../img/icons.svg'; // IN PARCEL: WE CAN IMPORT MORE THAN JS FILE!!! ALL KINDS OF ASSETS (PARCEL 2 )
-import { Fraction } from 'fractional'; // installed libraries from NPM do not have to specify the path
+import Fraction from 'fraction.js';
+// import { Fraction } from 'fractional'; // installed libraries from NPM do not have to specify the path
 
 class RecipeView extends View {
   // No need to call constructor here, because we are not passing any properties to the object anyway, and we don't have any script to execute right after the instantiation
@@ -136,7 +137,7 @@ class RecipeView extends View {
             <use href="${icons}#icon-check"></use>
           </svg>
           <div class="recipe__quantity">${
-            ing.quantity ? new Fraction(ing.quantity).toString() : ''
+            ing.quantity ? new Fraction(ing.quantity).toFraction(true) : ''
           }</div>
           <div class="recipe__description">
             <span class="recipe__unit">${ing.unit}</span>
