@@ -1,90 +1,87 @@
 'use strict';
 
-/*
 ///////////////////////////////////////
 // Constructor Functions and the new Operator
-const Person = function (firstName, birthYear) {
-  // Instance properties
-  this.firstName = firstName;
-  this.birthYear = birthYear;
+// const Person = function (firstName, birthYear) {
+//   // Instance properties
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
 
-  // Never to this!
-  // this.calcAge = function () {
-  //   console.log(2037 - this.birthYear);
-  // };
-};
+//   // Never to this!
+//   // this.calcAge = function () {
+//   //   console.log(2037 - this.birthYear);
+//   // };
+// };
 
-const jonas = new Person('Jonas', 1991);
-console.log(jonas);
+// const jonas = new Person('Jonas', 1991);
+// console.log(jonas);
 
-// 1. New {} is created
-// 2. function is called, this = {}
-// 3. {} linked to prototype
-// 4. function automatically return {}
+// // 1. New {} is created
+// // 2. function is called, this = {}
+// // 3. {} linked to prototype
+// // 4. function automatically return {}
 
-const matilda = new Person('Matilda', 2017);
-const jack = new Person('Jack', 1975);
+// const matilda = new Person('Matilda', 2017);
+// const jack = new Person('Jack', 1975);
 
-console.log(jonas instanceof Person);
+// console.log(jonas instanceof Person);
 
-Person.hey = function () {
-  console.log('Hey there 👋');
-  console.log(this);
-};
-Person.hey();
+// Person.hey = function () {
+//   console.log('Hey there 👋');
+//   console.log(this);
+// };
+// Person.hey();
 
 ///////////////////////////////////////
 // Prototypes
-console.log(Person.prototype);
+// console.log(Person.prototype);
 
-Person.prototype.calcAge = function () {
-  console.log(2037 - this.birthYear);
-};
+// Person.prototype.calcAge = function () {
+//   console.log(2037 - this.birthYear);
+// };
 
-jonas.calcAge();
-matilda.calcAge();
+// jonas.calcAge();
+// matilda.calcAge();
 
 // .__proto__ is the [[Prototype]] in the object, you can see it using console.log / console.dir
-console.log(jonas.__proto__);
-console.log(jonas.__proto__ === Person.prototype);
+// console.log(jonas.__proto__);
+// console.log(jonas.__proto__ === Person.prototype);
 
-console.log(Person.prototype.isPrototypeOf(jonas));
-console.log(Person.prototype.isPrototypeOf(matilda));
-console.log(Person.prototype.isPrototypeOf(Person));
+// console.log(Person.prototype.isPrototypeOf(jonas));
+// console.log(Person.prototype.isPrototypeOf(matilda));
+// console.log(Person.prototype.isPrototypeOf(Person));
 
 // .prototyeOfLinkedObjects
 
-Person.prototype.species = 'Homo Sapiens';
-console.log(jonas.species, matilda.species);
+// Person.prototype.species = 'Homo Sapiens';
+// console.log(jonas.species, matilda.species);
 
-console.log(jonas.hasOwnProperty('firstName'));
-console.log(jonas.hasOwnProperty('species'));
-
+// console.log(jonas.hasOwnProperty('firstName'));
+// console.log(jonas.hasOwnProperty('species'));
 
 ///////////////////////////////////////
 // Prototypal Inheritance on Built-In Objects
-console.log(jonas.__proto__);
+// console.log(jonas.__proto__);
 // Object.prototype (top of prototype chain)
-console.log(jonas.__proto__.__proto__);
-console.log(jonas.__proto__.__proto__.__proto__);
+// console.log(jonas.__proto__.__proto__);
+// console.log(jonas.__proto__.__proto__.__proto__);
 
-console.dir(Person.prototype.constructor);
+// console.dir(Person.prototype.constructor);
 
-const arr = [3, 6, 6, 5, 6, 9, 9]; // new Array === []
-console.log(arr.__proto__);
-console.log(arr.__proto__ === Array.prototype);
+// const arr = [3, 6, 6, 5, 6, 9, 9]; // new Array === []
+// console.log(arr.__proto__);
+// console.log(arr.__proto__ === Array.prototype);
 
-console.log(arr.__proto__.__proto__);
+// console.log(arr.__proto__.__proto__);
 
-Array.prototype.unique = function () {
-  return [...new Set(this)];
-};
+// Array.prototype.unique = function () {
+//   return [...new Set(this)];
+// };
 
-console.log(arr.unique());
+// console.log(arr.unique());
 
-const h1 = document.querySelector('h1');
-console.dir(x => x + 1);
-*/
+// const h1 = document.querySelector('h1');
+// console.dir(x => x + 1);
 
 ///////////////////////////////////////
 // Coding Challenge #1
@@ -230,9 +227,10 @@ console.log(account.movements);
 // };
 
 // const miggy = new Person2('Miguel Pogi', 1997);
-// console.log(miggy);
+// miggy.sayHello();
 
 // Person2.staticHello();
+// console.dir(Person2);
 
 /////////////////////////////
 // Using Object.create()
@@ -610,66 +608,66 @@ DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
 GOOD LUCK 😀
 */
 
-class Car {
-  constructor(make, speed) {
-    this.make = make;
-    this.speed = speed;
-  }
+// class Car {
+//   constructor(make, speed) {
+//     this.make = make;
+//     this.speed = speed;
+//   }
 
-  accelerate() {
-    this.speed += 10;
+//   accelerate() {
+//     this.speed += 10;
 
-    console.log(`${this.make} is going at ${this.speed} km/h`);
-  }
+//     console.log(`${this.make} is going at ${this.speed} km/h`);
+//   }
 
-  brake() {
-    this.speed -= 5;
-    console.log(`${this.make} is going at ${this.speed} km/h`);
-    return this;
-  }
+//   brake() {
+//     this.speed -= 5;
+//     console.log(`${this.make} is going at ${this.speed} km/h`);
+//     return this;
+//   }
 
-  get speedUS() {
-    return this.speed / 1.6;
-  }
+//   get speedUS() {
+//     return this.speed / 1.6;
+//   }
 
-  set speedUS(speed) {
-    this.speed = speed * 1.6;
-  }
-}
+//   set speedUS(speed) {
+//     this.speed = speed * 1.6;
+//   }
+// }
 
-class EV extends Car {
-  // Private field
-  #charge;
+// class EV extends Car {
+//   // Private field
+//   #charge;
 
-  constructor(make, speed, charge) {
-    super(make, speed);
-    this.#charge = charge;
-  }
+//   constructor(make, speed, charge) {
+//     super(make, speed);
+//     this.#charge = charge;
+//   }
 
-  chargeBattery(chargeTo) {
-    this.#charge = chargeTo;
-    return this;
-  }
+//   chargeBattery(chargeTo) {
+//     this.#charge = chargeTo;
+//     return this;
+//   }
 
-  accelerate() {
-    this.speed += 20;
-    this.#charge--;
+//   accelerate() {
+//     this.speed += 20;
+//     this.#charge--;
 
-    console.log(
-      `${this.make} is going at ${this.speed} km/h with a charge of ${
-        this.#charge
-      }%`
-    );
+//     console.log(
+//       `${this.make} is going at ${this.speed} km/h with a charge of ${
+//         this.#charge
+//       }%`
+//     );
 
-    return this;
-  }
-}
+//     return this;
+//   }
+// }
 
-const tesla = new EV('Tesla', 120, 23);
-tesla
-  .accelerate()
-  .accelerate()
-  .chargeBattery(100)
-  .accelerate()
-  .accelerate()
-  .brake();
+// const tesla = new EV('Tesla', 120, 23);
+// tesla
+//   .accelerate()
+//   .accelerate()
+//   .chargeBattery(100)
+//   .accelerate()
+//   .accelerate()
+//   .brake();
